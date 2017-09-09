@@ -22,9 +22,7 @@ dpull:
 
 dprep:
 	docker run --detach $(DOCKER_OPTS) --name $(CONTAINER_ID) --volume=$(PWD):/etc/ansible/roles/role_under_test:rw $(DOCKER_IMAGE) $(DOCKER_INIT)
-	if [ -f requirements.yml ]; then ;\
-	  docker exec --tty $(CONTAINER_ID) env TERM=xterm ansible-galaxy install -r /etc/ansible/roles/role_under_test/requirements.yml ;\
-	fi
+	if [ -f requirements.yml ]; then ; docker exec --tty $(CONTAINER_ID) env TERM=xterm ansible-galaxy install -r /etc/ansible/roles/role_under_test/requirements.yml ; fi
 
 syn:
 	docker exec --tty $(CONTAINER_ID) env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check
