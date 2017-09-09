@@ -21,6 +21,15 @@ The latest version of the image will be pushed on Docker Hub automatically every
     a. `docker exec --tty [container_id] env TERM=xterm ansible --version`
     b. `docker exec --tty [container_id] env TERM=xterm ansible-playbook /path/to/ansible/playbook.yml --syntax-check`
 
+  5. Use to test Ansible with make. Copy the Makefile in test folder to test your role using Jenkins or Travis-CI pipeline.
+
+    ```
+       cd role_under_test
+       curl -o Makefile https://raw.githubusercontent.com/mauromedda/ansible-centos7-ci/master/tests/Makefile
+       make
+     ```
+
+
 ## Notes
 
 I use Docker to test my Ansible roles and playbooks on CentOS 7 using CI tools, usually Jenkins and Travis. This container allows me to test roles and playbooks using Ansible running locally inside the container.
