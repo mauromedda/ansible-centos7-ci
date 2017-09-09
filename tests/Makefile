@@ -22,7 +22,7 @@ dpull:
 
 dprep:
 	docker run --detach $(DOCKER_OPTS) --name $(CONTAINER_ID) --volume=$(PWD):/etc/ansible/roles/role_under_test:rw $(DOCKER_IMAGE) $(DOCKER_INIT)
-	if [[ -f requirements.yml ]]; then \
+	if [ -f requirements.yml ]; then ;\
 	  docker exec --tty $(CONTAINER_ID) env TERM=xterm ansible-galaxy install -r /etc/ansible/roles/role_under_test/requirements.yml ;\
 	fi
 
@@ -36,8 +36,7 @@ run:
 	docker exec --tty $(CONTAINER_ID) env TERM=xterm env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml
 
 idemp:
-	docker exec --tty $(CONTAINER_ID) env TERM=xterm env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml | grep -q 'changed=0.*failed=0' ;\
-    	&& (printf 'Idempotence test: pass'"\n") || (printf 'Idempotence test: fail'"\n" && exit 1)
+	docker exec --tty $(CONTAINER_ID) env TERM=xterm env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml | grep -q 'changed=0.*failed=0' && (printf 'Idempotence test: pass'"\n") || (printf 'Idempotence test: fail'"\n" && exit 1)
 	
 	
 clean:
