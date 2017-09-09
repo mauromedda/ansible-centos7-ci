@@ -8,7 +8,7 @@ before_install:
 
 script:
   # Test building Dockerfile.
-  - docker build -t ansible-centos7-ci .
+  - docker build -t ansible-centos7-ci -f Dockerfile.ansible-centos7-ci .
 
   # Test running the container.
   - docker run --name test-container -d --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro ansible-centos7-ci /usr/lib/systemd/systemd
