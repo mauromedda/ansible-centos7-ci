@@ -9,7 +9,7 @@ The latest version of the image will be pushed on Docker Hub automatically every
 
   1. [Install docker engine](https://docs.docker.com/engine/installation/)
   2. Clone the repo and `cd` on this directory
-  3. Run `docker build -t ansible-centos7-ci -f Dockerfile .`
+  3. Run `docker build -t ansible-centos7-ci -f Dockerfile.ansible-centos7-ci .`
 
 # How to use the image
 
