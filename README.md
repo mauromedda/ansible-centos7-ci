@@ -26,8 +26,9 @@ The latest version of the image will be pushed on Docker Hub automatically every
     ```
        cd role_under_test
        curl -o Makefile https://raw.githubusercontent.com/mauromedda/ansible-centos7-ci/master/tests/Makefile
+       export CONTAINER_ID=$(date +%s)
        make
-     ```
+    ```
 
 
 ## Notes
