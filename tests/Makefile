@@ -1,3 +1,10 @@
+# This is a Makefile useful to wrap Ansible CI test in Jenkins or Travis Pipelines
+# It executes four tests:
+#   - syntax check
+#   - linting check
+#   - execution
+#   - idempotence
+
 all: dpull dprep syn lint run idemp clean
 
 .PHONY: all
