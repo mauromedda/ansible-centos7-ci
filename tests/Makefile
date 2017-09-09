@@ -34,7 +34,8 @@ run:
 	docker exec --tty $(CONTAINER_ID) env TERM=xterm env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml
 
 idemp:
-	docker exec --tty $(CONTAINER_ID) env TERM=xterm env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml | grep -q 'changed=0.*failed=0' && (echo "Idempotence test: pass") || (echo "Idempotence test: fail" && exit 1)
+	docker exec --tty $(CONTAINER_ID) env TERM=xterm env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml | ;\
+	grep -q 'changed=0.*failed=0' && (echo "Idempotence test: pass") || (echo "Idempotence test: fail" && exit 1)
 	
 	
 clean:
