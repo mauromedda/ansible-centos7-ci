@@ -5,7 +5,6 @@ all: dpull dprep syn lint run idemp clean
 DOCKER_OPTS := --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
 DOCKER_INIT := /usr/lib/systemd/systemd
 DOCKER_IMAGE ?= mauromedda/ansible-centos7-ci:latest
-IDEMP_TEST ?= true
 
 ifeq ($(CONTAINER_ID),)
   CONTAINER_ID := $(shell date +%s)
@@ -30,12 +29,11 @@ run:
 	docker exec --tty $(CONTAINER_ID) env TERM=xterm env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml
 
 idemp:
-	ifeq($(IDEMP_TEST),true)
-	   docker exec --tty $(CONTAINER_ID) env TERM=xterm env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml ;\
-	   | grep -q 'changed=0.*failed=0' ;\
-    	   && (printf 'Idempotence test: pass'"\n") ;\
-	   || (printf 'Idempotence test: fail'"\n" && exit 1)
-	endif
+	docker exec --tty $(CONTAINER_ID) env TERM=xterm env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml ;\
+	| grep -q 'changed=0.*failed=0' ;\
+    	&& (printf 'Idempotence test: pass'"\n") ;\
+	|| (printf 'Idempotence test: fail'"\n" && exit 1)
+	
 	
 clean:
 	docker stop $(CONTAINER_ID)
