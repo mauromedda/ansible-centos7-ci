@@ -5,6 +5,7 @@ all: dpull dprep syn lint run idemp clean
 DOCKER_OPTS := --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro
 DOCKER_INIT := /usr/lib/systemd/systemd
 DOCKER_IMAGE := mauromedda/ansible-centos7-ci:latest
+IDEMP_TEST := true
 
 ifeq ($(CONTAINER_ID),)
   CONTAINER_ID := $(shell date +%s)
