@@ -23,6 +23,10 @@ RUN yum makecache fast \
       make \
       git \
       python-pip \
+      selinux-policy \
+      libselinux-python \
+      firewalld \
+      openssh-server \
  && yum clean all
 
 RUN sudo pip install beautifulsoup4 \
